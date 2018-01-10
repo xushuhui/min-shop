@@ -2,12 +2,12 @@
 个人开发的微信小程序商城，带后台
 
 ## 实现效果
-![image](/image/1.jpg) 
-![image](/image/2.jpg)  
-![image](/image/3.jpg)  
-![image](/image/4.jpg)  
-![image](/image/5.jpg) 
-![image](/image/6.jpg)  
+![image](./image/1.jpg) 
+![image](./image/2.jpg)  
+![image](./image/3.jpg)  
+![image](./image/4.jpg)  
+![image](./image/5.jpg) 
+![image](./image/6.jpg)  
 
 
 Github地址 (https://github.com/xushuhui1992/min-shop)
