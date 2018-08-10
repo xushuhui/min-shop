@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by 七月.
- * Author: 七月
- * 微信公号：小楼昨夜又秋风
- * 知乎ID: 七月在夏天
+ * Created by xushuhui.
+ * Author: xushuhui
+ * 微信公号：互联网工程师
+ * 知乎ID: 徐曙辉
  * Date: 2017/2/26
  * Time: 16:02
  */
