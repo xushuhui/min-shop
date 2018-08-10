@@ -1,0 +1,7 @@
+composer.lock
+*.log
+/*.sh
+/.idea
+/.svn
+/application/extra/setting.php
+/application/extra/secure.php
