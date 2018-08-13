@@ -20,28 +20,28 @@ export default {
       navigationBarTitleText: 'WeChat',
       navigationBarTextStyle: 'black'
     },
-    "tabBar":{
-      "list":[{
-          "pagePath":"pages/books/main",
-          "iconPath":"static/img/book.png",
-          "selectedIconPath":"static/img/book-active.png",
-          "text":"图书"
+    tabBar:{
+      list:[{
+          pagePath:"pages/books/main",
+          iconPath:"static/img/book.png",
+          selectedIconPath:"static/img/book-active.png",
+          text:"图书"
         },{
-          "pagePath":"pages/comments/main",
-          "iconPath":"static/img/todo.png",
-          "selectedIconPath":"static/img/todo-active.png",
-          "text":"评论"
+          pagePath:"pages/comments/main",
+          iconPath:"static/img/todo.png",
+          selectedIconPath:"static/img/todo-active.png",
+          text:"评论"
         },{
-          "pagePath":"pages/me/main",
-          "iconPath":"static/img/todo.png",
-          "selectedIconPath":"static/img/me-active.png",
-          "text":"我的"
+          pagePath:"pages/me/main",
+          iconPath:"static/img/todo.png",
+          selectedIconPath:"static/img/me-active.png",
+          text:"我的"
         }],
-        "backgroundColor": "#F5F5F5",
-        "selectedColor": "#AB956D",
-        "color": "#989898",
-        "borderStyle": "white",
-        "position":"bottom"
+        backgroundColor: "#F5F5F5",
+        selectedColor: "#AB956D",
+        color: "#989898",
+        borderStyle: "white",
+        position:"bottom"
     },
   }
 }
