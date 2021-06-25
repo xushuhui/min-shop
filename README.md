@@ -2,6 +2,7 @@
 个人开发的微信小程序商城，带后台
 
 ## 实现效果
+
 ![image](./image/1.jpg) 
 ![image](./image/2.jpg)  
 ![image](./image/3.jpg)  
@@ -25,3 +26,5 @@ coding地址 (https://git.coding.net/xushuhui/min-shop.git)
 
 All rights reserved。
 
+### 微信公众号
+![扫码关注](https://tvax4.sinaimg.cn/large/a616b9a4gy1grl9d1rdpvj2076076wey.jpg)
