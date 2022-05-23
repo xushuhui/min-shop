@@ -1,7 +1,7 @@
 /**
  * Created by jimmy on 17/03/05.
  */
-import {Base} from '../../utils/base.js';
+import { Base } from '../utils/base.js';
 
 /*
 * 购物车数据存放在本地，
@@ -9,10 +9,10 @@ import {Base} from '../../utils/base.js';
 * 当用用户全部购买时，直接删除整个缓存
 *
 */
-class Cart extends Base{
-    constructor(){
-        super();
-        this._storageKeyName='cart';
+class Cart {
+    constructor() {
+
+        this._storageKeyName = 'cart';
     };
 
     /*
@@ -20,20 +20,20 @@ class Cart extends Base{
     * param
     * flag - {bool} 是否过滤掉不下单的商品
     */
-    getCartDataFromLocal(flag){
+    getCartDataFromLocal(flag) {
         var res = wx.getStorageSync(this._storageKeyName);
-        if(!res){
-            res=[];
+        if (!res) {
+            res = [];
         }
         //在下单的时候过滤不下单的商品，
-        if(flag){
-            var newRes=[];
-            for(let i=0;i<res.length;i++){
-                if(res[i].selectStatus){
+        if (flag) {
+            var newRes = [];
+            for (let i = 0; i < res.length; i++) {
+                if (res[i].selectStatus) {
                     newRes.push(res[i]);
                 }
             }
-            res=newRes;
+            res = newRes;
         }
 
         return res;
@@ -47,30 +47,30 @@ class Cart extends Base{
     * counts1 - {int} 不分类
     * counts2 -{int} 分类
     */
-    getCartTotalCounts(flag){
-        var data=this.getCartDataFromLocal(),
-            counts1=0,
-            counts2=0;
-        for(let i=0;i<data.length;i++){
-            if (flag){
-                if(data[i].selectStatus) {
+    getCartTotalCounts(flag) {
+        var data = this.getCartDataFromLocal(),
+            counts1 = 0,
+            counts2 = 0;
+        for (let i = 0; i < data.length; i++) {
+            if (flag) {
+                if (data[i].selectStatus) {
                     counts1 += data[i].counts;
                     counts2++;
                 }
-            }else{
+            } else {
                 counts1 += data[i].counts;
                 counts2++;
             }
         }
         return {
-            counts1:counts1,
-            counts2:counts2
+            counts1: counts1,
+            counts2: counts2
         };
     };
 
     /*本地缓存 保存／更新*/
-    execSetStorageSync(data){
-        wx.setStorageSync(this._storageKeyName,data);
+    execSetStorageSync(data) {
+        wx.setStorageSync(this._storageKeyName, data);
     };
 
 
@@ -82,21 +82,21 @@ class Cart extends Base{
     * item - {obj} 商品对象,
     * counts - {int} 商品数目,
     * */
-    add(item,counts){
-        var cartData=this.getCartDataFromLocal();
-        if(!cartData){
-            cartData=[];
+    add(item, counts) {
+        var cartData = this.getCartDataFromLocal();
+        if (!cartData) {
+            cartData = [];
         }
-        var isHadInfo=this._isHasThatOne(item.id,cartData);
+        var isHadInfo = this._isHasThatOne(item.id, cartData);
         //新商品
-        if(isHadInfo.index==-1) {
-            item.counts=counts;
-            item.selectStatus=true;  //默认在购物车中为选中状态
+        if (isHadInfo.index == -1) {
+            item.counts = counts;
+            item.selectStatus = true;  //默认在购物车中为选中状态
             cartData.push(item);
         }
         //已有商品
-        else{
-            cartData[isHadInfo.index].counts+=counts;
+        else {
+            cartData[isHadInfo.index].counts += counts;
         }
         this.execSetStorageSync(cartData);  //更新本地缓存
         return cartData;
@@ -108,12 +108,12 @@ class Cart extends Base{
     * id - {int} 商品id
     * counts -{int} 数目
     * */
-    _changeCounts(id,counts){
-        var cartData=this.getCartDataFromLocal(),
-            hasInfo=this._isHasThatOne(id,cartData);
-        if(hasInfo.index!=-1){
-            if(hasInfo.data.counts>1){
-                cartData[hasInfo.index].counts+=counts;
+    _changeCounts(id, counts) {
+        var cartData = this.getCartDataFromLocal(),
+            hasInfo = this._isHasThatOne(id, cartData);
+        if (hasInfo.index != -1) {
+            if (hasInfo.data.counts > 1) {
+                cartData[hasInfo.index].counts += counts;
             }
         }
         this.execSetStorageSync(cartData);  //更新本地缓存
@@ -122,27 +122,27 @@ class Cart extends Base{
     /*
     * 增加商品数目
     * */
-    addCounts(id){
-        this._changeCounts(id,1);
+    addCounts(id) {
+        this._changeCounts(id, 1);
     };
 
     /*
     * 购物车减
     * */
-    cutCounts(id){
-        this._changeCounts(id,-1);
+    cutCounts(id) {
+        this._changeCounts(id, -1);
     };
 
     /*购物车中是否已经存在该商品*/
-    _isHasThatOne(id,arr){
+    _isHasThatOne(id, arr) {
         var item,
-            result={index:-1};
-        for(let i=0;i<arr.length;i++){
-            item=arr[i];
-            if(item.id==id) {
+            result = { index: -1 };
+        for (let i = 0; i < arr.length; i++) {
+            item = arr[i];
+            if (item.id == id) {
                 result = {
-                    index:i,
-                    data:item
+                    index: i,
+                    data: item
                 };
                 break;
             }
@@ -153,12 +153,12 @@ class Cart extends Base{
     /*
     * 删除某些商品
     */
-    delete(ids){
-        if(!(ids instanceof Array)){
-            ids=[ids];
+    delete(ids) {
+        if (!(ids instanceof Array)) {
+            ids = [ids];
         }
-        var cartData=this.getCartDataFromLocal();
-        for(let i=0;i<ids.length;i++) {
+        var cartData = this.getCartDataFromLocal();
+        for (let i = 0; i < ids.length; i++) {
             var hasInfo = this._isHasThatOne(ids[i], cartData);
             if (hasInfo.index != -1) {
                 cartData.splice(hasInfo.index, 1);  //删除数组某一项
@@ -168,4 +168,4 @@ class Cart extends Base{
     }
 }
 
-export {Cart};
+export { Cart };

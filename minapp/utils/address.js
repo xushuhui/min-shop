@@ -1,8 +1,6 @@
-/**
- * Created by jimmy on 17/3/9.
- */
+
 import {Base} from 'base.js';
-import { Config } from 'config.js';
+
 
 class Address extends Base{
     constructor() {
