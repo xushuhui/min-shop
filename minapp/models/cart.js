@@ -1,8 +1,4 @@
-/**
- * Created by jimmy on 17/03/05.
- */
-import { Base } from '../utils/base.js';
-
+import { Http } from "../utils/http"
 /*
 * 购物车数据存放在本地，
 * 当用户选中某些商品下单购买时，会从缓存中删除该数据，更新缓存
@@ -20,7 +16,7 @@ class Cart {
     * param
     * flag - {bool} 是否过滤掉不下单的商品
     */
-    getCartDataFromLocal(flag) {
+    static async getCartDataFromLocal(flag) {
         var res = wx.getStorageSync(this._storageKeyName);
         if (!res) {
             res = [];
@@ -47,7 +43,7 @@ class Cart {
     * counts1 - {int} 不分类
     * counts2 -{int} 分类
     */
-    getCartTotalCounts(flag) {
+    static async getCartTotalCounts(flag) {
         var data = this.getCartDataFromLocal(),
             counts1 = 0,
             counts2 = 0;
@@ -69,7 +65,7 @@ class Cart {
     };
 
     /*本地缓存 保存／更新*/
-    execSetStorageSync(data) {
+    static async execSetStorageSync(data) {
         wx.setStorageSync(this._storageKeyName, data);
     };
 
@@ -82,7 +78,7 @@ class Cart {
     * item - {obj} 商品对象,
     * counts - {int} 商品数目,
     * */
-    add(item, counts) {
+    static async  add(item, counts) {
         var cartData = this.getCartDataFromLocal();
         if (!cartData) {
             cartData = [];

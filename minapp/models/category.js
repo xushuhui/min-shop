@@ -1,15 +1,9 @@
-/**
- * Created by jimmy on 17/2/26.
- */
-import {Base} from '../../utils/base.js';
-
-class Category extends Base {
-    constructor() {
-        super();
-    }
+import { Http } from "../utils/http"
+class Category {
+  
 
     /*获得所有分类*/
-    getCategoryType(callback) {
+    static async  getCategoryType() {
         var param = {
             url: 'category/all',
             sCallback: function (data) {
@@ -19,7 +13,7 @@ class Category extends Base {
         this.request(param);
     }
     /*获得某种分类的商品*/
-    getProductsByCategory(id,callback) {
+    static async getProductsByCategory(id) {
         var param = {
             url: 'product/by_category?id='+id,
             sCallback: function (data) {

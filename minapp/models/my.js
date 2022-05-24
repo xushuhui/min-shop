@@ -1,15 +1,9 @@
-/**
- * Created by jimmy on 17/3/24.
- */
-import {Base} from '../../utils/base.js'
 
-class My extends Base{
-    constructor(){
-        super();
-    }
-
+import { Http } from "../utils/http"
+class My{
+    
     //得到用户信息
-    getUserInfo(cb){
+    static async  getUserInfo(cb){
         var that=this;
         wx.login({
             success: function () {
@@ -36,7 +30,7 @@ class My extends Base{
     }
 
     /*更新用户信息到服务器*/
-    _updateUserInfo(res){
+    static async   _updateUserInfo(res){
         var nickName=res.nickName;
         delete res.avatarUrl;  //将昵称去除
         delete res.nickName;  //将昵称去除

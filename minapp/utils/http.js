@@ -15,7 +15,9 @@ class Http {
             data,
             method,
             header: {
-                appKey: config.appKey
+                'content-type': 'application/json',
+                    appkey: config.appkey,
+                    'authorization': `Bearer ${wx.getStorageSync('token')}`
             }
 
         })
