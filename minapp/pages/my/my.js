@@ -1,6 +1,6 @@
 import {Address} from '../../utils/address.js';
 import {Order} from '../order/order-model.js';
-import {My} from '../my/my-model.js';
+import {My} from '../my/my.js';
 
 var address=new Address();
 var order=new Order();

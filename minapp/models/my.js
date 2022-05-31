@@ -31,18 +31,13 @@ class My{
 
     /*更新用户信息到服务器*/
     static async   _updateUserInfo(res){
-        var nickName=res.nickName;
-        delete res.avatarUrl;  //将昵称去除
-        delete res.nickName;  //将昵称去除
-        var allParams = {
-            url: 'user/wx_info',
-            data:{nickname:nickName,extend:JSON.stringify(res)},
-            type:'post',
-            sCallback: function (data) {
-            }
-        };
-        this.request(allParams);
+        
 
+        return await Http.request({
+            url: `user/wx_info`,
+            method: 'POST',
+            data: {nickname:res.nickName,extend:JSON.stringify(res)},
+        })
     }
 }
 

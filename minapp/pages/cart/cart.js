@@ -1,6 +1,6 @@
-// var CartObj = require('cart-model.js');
 
-import {Cart} from 'cart-model.js';
+
+import {Cart} from '../../models/cart.js';
 
 var cart=new Cart(); //实例化 购物车
 var x1=0;

@@ -1,5 +1,5 @@
-import { Home } from 'home-model.js';
-var home = new Home(); //实例化 首页 对象
+import { Home } from '../../models/home.js';
+
 Page({
     data: {
         loadingHidden: false
@@ -13,14 +13,14 @@ Page({
         var that = this;
 
         // 获得bannar信息
-        home.getBannerData((data) => {
+        Home.getBannerData((data) => {
             that.setData({
                 bannerArr: data,
             });
         });
 
         /*获取主题信息*/
-        home.getThemeData((data) => {
+        Home.getThemeData((data) => {
             that.setData({
                 themeArr: data,
                 loadingHidden: true
@@ -28,7 +28,7 @@ Page({
         });
 
         /*获取单品信息*/
-        home.getProductorData((data) => {
+        Home.getProductorData((data) => {
             that.setData({
                 productsArr: data
             });
@@ -38,7 +38,7 @@ Page({
 
     /*跳转到商品详情*/
     onProductsItemTap: function (event) {
-        var id = home.getDataSet(event, 'id');
+        var id = Home.getDataSet(event, 'id');
         wx.navigateTo({
             url: '../product/product?id=' + id
         })
@@ -46,8 +46,8 @@ Page({
 
     /*跳转到主题列表*/
     onThemesItemTap: function (event) {
-        var id = home.getDataSet(event, 'id');
-        var name = home.getDataSet(event, 'name');
+        var id = Home.getDataSet(event, 'id');
+        var name = Home.getDataSet(event, 'name');
         wx.navigateTo({
             url: '../theme/theme?id=' + id+'&name='+ name
         })

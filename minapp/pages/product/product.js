@@ -1,10 +1,9 @@
 // var productObj = require('product-model.js');
 
-import {Product} from 'product-model.js';
-import {Cart} from '../cart/cart-model.js';
+import {Product} from '../../models/product.js';
+import {Cart} from '../../models/cart.js';
 
-var product=new Product();  //实例化 商品详情 对象
-var cart=new Cart();
+
 Page({
     data: {
         loadingHidden:false,

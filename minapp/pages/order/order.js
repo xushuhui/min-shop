@@ -1,5 +1,5 @@
-import {Order} from '../order/order-model.js';
-import {Cart} from '../cart/cart-model.js';
+import {Order} from '../../models/order.js';
+import {Cart} from '../../models/cart.js';
 import {Address} from '../../utils/address.js';
 
 var order=new Order();

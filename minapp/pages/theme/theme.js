@@ -1,5 +1,5 @@
-import { Theme } from 'theme-model.js';
-var theme = new Theme(); //实例化  主题列表对象
+import { Theme } from '../../models/theme.js';
+
 Page({
     data: {
         loadingHidden: false

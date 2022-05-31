@@ -1,5 +1,5 @@
 
-
+import { Http } from "../utils/http"
 
 class Address {
 
@@ -53,9 +53,6 @@ class Address {
             country = res.countyName || res.country,
             detail = res.detailInfo || res.detail;
         var totalDetail = city + country + detail;
-
-
-
         //直辖市，取出省部分
         if (!this.isCenterCity(province)) {
             totalDetail = province + totalDetail;
