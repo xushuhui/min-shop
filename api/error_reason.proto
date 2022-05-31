@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package api;
+
+option go_package = "minshop/api";
+
+
+
+enum ErrorReason {
+  GEETER_UNSPECIFIED = 0;
+  USER_NOT_FOUND = 1;
+}

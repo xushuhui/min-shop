@@ -3,19 +3,18 @@
 
 ## 实现效果
 
-![image](./image/1.jpg) 
-![image](./image/2.jpg)  
-![image](./image/3.jpg)  
-![image](./image/4.jpg)  
-![image](./image/5.jpg) 
-![image](./image/6.jpg)  
+![image](./docs/image/1.jpg) 
+![image](./docs/image/2.jpg)  
+![image](./docs/image/3.jpg)  
+![image](./docs/image/4.jpg)  
+![image](./docs/image/5.jpg) 
+![image](./docs/image/6.jpg)  
 
 
 Github地址 (https://github.com/xushuhui1992/min-shop)
 
 码云地址 (https://gitee.com/xushuhui/min-shop)
 
-coding地址 (https://git.coding.net/xushuhui/min-shop.git)
 
 更新日志
 - 2018-8-10 使用mpvue + koa2 重写
