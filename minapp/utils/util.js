@@ -13,3 +13,12 @@ const promisic = function(func) {
       });
     };
   };
+   /*获得元素上的绑定的值*/
+   const getDataSet= function(event, key) {
+    return event.currentTarget.dataset[key];
+};
+  export {
+    promisic,
+    getDataSet
+}
+ 

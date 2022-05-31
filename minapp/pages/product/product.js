@@ -2,7 +2,9 @@
 
 import {Product} from '../../models/product.js';
 import {Cart} from '../../models/cart.js';
-
+import {
+    getDataSet
+} from "../../utils/util"
 
 Page({
     data: {
@@ -13,42 +15,40 @@ Page({
         currentTabsIndex:0,
         cartTotalCounts:0,
     },
-    onLoad: function (option) {
+    async onLoad (option) {
         var id = option.id;
         this.data.id=id;
         this._loadData();
     },
 
     /*加载所有数据*/
-    _loadData:function(callback){
-        var that = this;
-        product.getDetailInfo(this.data.id,(data)=>{
-            that.setData({
-                cartTotalCounts:cart.getCartTotalCounts().counts1,
-                product:data,
-                loadingHidden:true
-            });
-            callback&& callback();
+    async _loadData(){
+       
+       product= Product.getDetailInfo(this.data.id);
+        this.setData({
+            cartTotalCounts:Cart.getCartTotalCounts().counts1,
+            product:product,
+            loadingHidden:true
         });
     },
 
     //选择购买数目
-    bindPickerChange: function(e) {
+    async bindPickerChange(e) {
         this.setData({
             productCounts: this.data.countsArray[e.detail.value],
         })
     },
 
     //切换详情面板
-    onTabsItemTap:function(event){
-        var index=product.getDataSet(event,'index');
+    async onTabsItemTap(event){
+        var index=getDataSet(event,'index');
         this.setData({
             currentTabsIndex:index
         });
     },
 
     /*添加到购物车*/
-    onAddingToCartTap:function(events){
+    async onAddingToCartTap(events){
         //防止快速点击
         if(this.data.isFly){
             return;
@@ -58,7 +58,7 @@ Page({
     },
 
     /*将商品数据添加到内存中*/
-    addToCart:function(){
+    async addToCart(){
         var tempObj={},keys=['id','name','main_img_url','price'];
         for(var key in this.data.product){
             if(keys.indexOf(key)>=0){
@@ -70,7 +70,7 @@ Page({
     },
 
     /*加入购物车动效*/
-    _flyToCartEffect:function(events){
+    async _flyToCartEffect(){
         //获得当前点击的位置，距离可视区域左上角
         var touches=events.touches[0];
         var diff={
@@ -100,21 +100,21 @@ Page({
     },
 
     /*跳转到购物车*/
-    onCartTap:function(){
+    async onCartTap(){
         wx.switchTab({
             url: '/pages/cart/cart'
         });
     },
 
     /*下拉刷新页面*/
-    onPullDownRefresh: function(){
+    async onPullDownRefresh(){
         this._loadData(()=>{
             wx.stopPullDownRefresh()
         });
     },
 
     //分享效果
-    onShareAppMessage: function () {
+    async onShareAppMessage () {
         return {
             title: '零食商贩 Pretty Vendor',
             path: 'pages/product/product?id=' + this.data.id

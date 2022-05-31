@@ -2,7 +2,7 @@
 // 全局变量以g_开头
 // 私有函数以_开头
 
-import { Config } from 'config.js';
+import { Config } from '../config/config';
 
 class Token {
     constructor() {

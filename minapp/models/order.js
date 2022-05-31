@@ -9,7 +9,6 @@ class Order {
 
     /*下订单*/
     static async doOrder(param) {
-
         return await Http.request({
             url: 'order',
             method: 'POST',

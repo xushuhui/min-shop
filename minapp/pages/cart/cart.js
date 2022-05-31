@@ -2,7 +2,6 @@
 
 import {Cart} from '../../models/cart.js';
 
-var cart=new Cart(); //实例化 购物车
 var x1=0;
 var x2=0;
 
@@ -21,8 +20,8 @@ Page({
      * 页面重新渲染，包括第一次，和onload方法没有直接关系
      */
     onShow:function(){
-        var cartData=cart.getCartDataFromLocal(),
-            countsInfo=cart.getCartTotalCounts(true);
+        var cartData=Cart.getCartDataFromLocal(),
+            countsInfo=Cart.getCartTotalCounts(true);
         this.setData({
             selectedCounts:countsInfo.counts1,
             selectedTypeCounts:countsInfo.counts2,
@@ -34,7 +33,7 @@ Page({
 
     /*离开页面时，更新本地缓存*/
     onHide:function(){
-        cart.execSetStorageSync(this.data.cartData);
+        Cart.execSetStorageSync(this.data.cartData);
     },
 
     /*更新购物车商品数据*/
