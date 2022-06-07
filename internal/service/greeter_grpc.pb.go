@@ -4,7 +4,7 @@
 // - protoc             v3.21.1
 // source: greeter.proto
 
-package api
+package service
 
 import (
 	context "context"
@@ -36,7 +36,7 @@ func NewGreeterClient(cc grpc.ClientConnInterface) GreeterClient {
 
 func (c *greeterClient) SayHello(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (*HelloReply, error) {
 	out := new(HelloReply)
-	err := c.cc.Invoke(ctx, "/api.Greeter/SayHello", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/service.Greeter/SayHello", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -82,7 +82,7 @@ func _Greeter_SayHello_Handler(srv interface{}, ctx context.Context, dec func(in
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.Greeter/SayHello",
+		FullMethod: "/service.Greeter/SayHello",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(GreeterServer).SayHello(ctx, req.(*HelloRequest))
@@ -94,12 +94,98 @@ func _Greeter_SayHello_Handler(srv interface{}, ctx context.Context, dec func(in
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Greeter_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "api.Greeter",
+	ServiceName: "service.Greeter",
 	HandlerType: (*GreeterServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "SayHello",
 			Handler:    _Greeter_SayHello_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "greeter.proto",
+}
+
+// AppClient is the client API for App service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type AppClient interface {
+	GetBanner(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*GetBannerReply, error)
+}
+
+type appClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewAppClient(cc grpc.ClientConnInterface) AppClient {
+	return &appClient{cc}
+}
+
+func (c *appClient) GetBanner(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*GetBannerReply, error) {
+	out := new(GetBannerReply)
+	err := c.cc.Invoke(ctx, "/service.App/GetBanner", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// AppServer is the server API for App service.
+// All implementations must embed UnimplementedAppServer
+// for forward compatibility
+type AppServer interface {
+	GetBanner(context.Context, *IdRequest) (*GetBannerReply, error)
+	mustEmbedUnimplementedAppServer()
+}
+
+// UnimplementedAppServer must be embedded to have forward compatible implementations.
+type UnimplementedAppServer struct {
+}
+
+func (UnimplementedAppServer) GetBanner(context.Context, *IdRequest) (*GetBannerReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetBanner not implemented")
+}
+func (UnimplementedAppServer) mustEmbedUnimplementedAppServer() {}
+
+// UnsafeAppServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to AppServer will
+// result in compilation errors.
+type UnsafeAppServer interface {
+	mustEmbedUnimplementedAppServer()
+}
+
+func RegisterAppServer(s grpc.ServiceRegistrar, srv AppServer) {
+	s.RegisterService(&App_ServiceDesc, srv)
+}
+
+func _App_GetBanner_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AppServer).GetBanner(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/service.App/GetBanner",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AppServer).GetBanner(ctx, req.(*IdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// App_ServiceDesc is the grpc.ServiceDesc for App service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var App_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "service.App",
+	HandlerType: (*AppServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetBanner",
+			Handler:    _App_GetBanner_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

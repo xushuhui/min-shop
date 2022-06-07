@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package api;
+package service;
 
-option go_package = "minshop/api";
+option go_package = "minshop/internal/service";
 
 
 

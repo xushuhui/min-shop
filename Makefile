@@ -25,9 +25,9 @@ config:
 api:
 	protoc --proto_path=./api \
 	       --proto_path=./third_party \
- 	       --go_out=paths=source_relative:./api \
- 	       --go-http_out=paths=source_relative:./api \
-		   --go-grpc_out=paths=source_relative:./api \
+ 	       --go_out=paths=source_relative:./internal/service \
+ 	       --go-http_out=paths=source_relative:./internal/service \
+		   --go-grpc_out=paths=source_relative:./internal/service \
  	       --openapi_out==paths=source_relative:. \
 	       $(API_PROTO_FILES)
 

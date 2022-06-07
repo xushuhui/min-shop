@@ -2,7 +2,7 @@
 // versions:
 // protoc-gen-go-http v2.3.0
 
-package api
+package service
 
 import (
 	context "context"
@@ -35,7 +35,7 @@ func _Greeter_SayHello0_HTTP_Handler(srv GreeterHTTPServer) func(ctx http.Contex
 		if err := ctx.BindVars(&in); err != nil {
 			return err
 		}
-		http.SetOperation(ctx, "/api.Greeter/SayHello")
+		http.SetOperation(ctx, "/service.Greeter/SayHello")
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
 			return srv.SayHello(ctx, req.(*HelloRequest))
 		})
@@ -64,7 +64,63 @@ func (c *GreeterHTTPClientImpl) SayHello(ctx context.Context, in *HelloRequest, 
 	var out HelloReply
 	pattern := "/helloworld/{name}"
 	path := binding.EncodeURL(pattern, in, true)
-	opts = append(opts, http.Operation("/api.Greeter/SayHello"))
+	opts = append(opts, http.Operation("/service.Greeter/SayHello"))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+type AppHTTPServer interface {
+	GetBanner(context.Context, *IdRequest) (*GetBannerReply, error)
+}
+
+func RegisterAppHTTPServer(s *http.Server, srv AppHTTPServer) {
+	r := s.Route("/")
+	r.GET("/banner/{id}", _App_GetBanner0_HTTP_Handler(srv))
+}
+
+func _App_GetBanner0_HTTP_Handler(srv AppHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in IdRequest
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/service.App/GetBanner")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.GetBanner(ctx, req.(*IdRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*GetBannerReply)
+		return ctx.Result(200, reply)
+	}
+}
+
+type AppHTTPClient interface {
+	GetBanner(ctx context.Context, req *IdRequest, opts ...http.CallOption) (rsp *GetBannerReply, err error)
+}
+
+type AppHTTPClientImpl struct {
+	cc *http.Client
+}
+
+func NewAppHTTPClient(client *http.Client) AppHTTPClient {
+	return &AppHTTPClientImpl{client}
+}
+
+func (c *AppHTTPClientImpl) GetBanner(ctx context.Context, in *IdRequest, opts ...http.CallOption) (*GetBannerReply, error) {
+	var out GetBannerReply
+	pattern := "/banner/{id}"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation("/service.App/GetBanner"))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
 	if err != nil {
