@@ -3,7 +3,7 @@
 
 openapi: 3.0.3
 info:
-    title: ""
+    title: App API
     version: 0.0.1
 paths:
     /banner/{id}:
@@ -24,32 +24,100 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/GetBannerReply'
+                                $ref: '#/components/schemas/Banner'
                 default:
                     description: Default error response
                     content:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/Status'
-    /helloworld/{name}:
+    /product/by_category/{id}:
         get:
             tags:
-                - Greeter
-            description: Sends a greeting
-            operationId: Greeter_SayHello
+                - App
+            operationId: App_GetProductByCategory
             parameters:
-                - name: name
+                - name: id
                   in: path
                   required: true
                   schema:
-                    type: string
+                    type: integer
+                    format: int64
             responses:
                 "200":
                     description: OK
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/HelloReply'
+                                $ref: '#/components/schemas/Product'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /product/{id}:
+        get:
+            tags:
+                - App
+            operationId: App_GetProduct
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int64
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Product'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /theme/{id}:
+        get:
+            tags:
+                - App
+            operationId: App_GetTheme
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int64
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Theme'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /themes:
+        get:
+            tags:
+                - App
+            operationId: App_GetThemes
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Themes'
                 default:
                     description: Default error response
                     content:
@@ -58,10 +126,10 @@ paths:
                                 $ref: '#/components/schemas/Status'
 components:
     schemas:
-        GetBannerReply:
+        Banner:
             type: object
             properties:
-                message:
+                id:
                     type: string
         GoogleProtobufAny:
             type: object
@@ -71,10 +139,10 @@ components:
                     description: The type of the serialized message.
             additionalProperties: true
             description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
-        HelloReply:
+        Product:
             type: object
             properties:
-                message:
+                id:
                     type: string
         Status:
             type: object
@@ -92,7 +160,17 @@ components:
                         $ref: '#/components/schemas/GoogleProtobufAny'
                     description: A list of messages that carry the error details.  There is a common set of message types for APIs to use.
             description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
+        Theme:
+            type: object
+            properties:
+                id:
+                    type: string
+        Themes:
+            type: object
+            properties:
+                theme:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Theme'
 tags:
     - name: App
-    - name: Greeter
-      description: The greeting service definition.

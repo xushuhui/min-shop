@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package service;
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+option go_package = "minshop/internal/service";
+
+service App {
+  rpc GetBanner (IdRequest) returns (Banner) {
+    option (google.api.http) = {
+      get: "/banner/{id}"
+    };
+  }
+  rpc GetTheme(IdRequest) returns (Theme){
+      option (google.api.http) = {
+      get: "/theme/{id}"
+    };
+  }
+  rpc GetThemes(google.protobuf.Empty) returns (Themes){
+      option (google.api.http) = {
+      get: "/themes"
+    };
+  }
+  rpc GetProduct(IdRequest) returns (Product){
+  option (google.api.http) = {
+      get: "/product/{id}"
+  };
+  }
+  rpc GetProductByCategory(IdRequest) returns (Product){
+    option (google.api.http) = {
+      get: "/product/by_category/{id}"
+  };
+  }
+}
+
+
+
+message IdRequest {
+  int64 id = 1;
+}
+message Theme {
+  string id = 1;
+}
+message Themes {
+  repeated Theme theme = 1;
+}
+message Banner {
+  string id = 1;
+}
+message Product {
+  string id =1;
+}
+message Products {
+ repeated Product product = 1;
+}

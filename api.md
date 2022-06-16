@@ -8,6 +8,7 @@ DELETE /theme/:tid/product/:pid
 ## product
 POST /product
 DELETE /product/:id
+
 GET /product/by_category/paginate
 GET  /product/by_category
 GET  /product/:id
